@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -243,6 +244,28 @@ public class DbConnection {
 		}
 	}
 	
-	
+	public static int insertShow(String title, String genre, String distribution, Date date, int noTickets) throws Exception
+	{
+		String sql = "insert Into show Values(?,?,?,?,?)";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, genre);
+			pstmt.setString(3, distribution);
+			pstmt.setDate(4, date);
+			pstmt.setInt(5, noTickets);
+
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		} finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
 	
 	}

@@ -83,6 +83,7 @@ public class ShowsFrame extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addShow) {
+			AddShowFrame addShowFrame = new AddShowFrame();
 			System.out.println("Add new show window!"); // quit application and close frame when QUIT is
 							// pressed
 		}
