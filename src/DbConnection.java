@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbConnection {
 	private static String driver = "org.gjt.mm.mysql.Driver";
@@ -144,5 +146,103 @@ public class DbConnection {
 		}
 		return password;
 	}
+	
+	public static int insertCashier(String username, String password, String firstname, String lastname) throws Exception
+	{
+		String sql = "insert Into Cashier Values(?,?,?,?)";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			pstmt.setString(3, firstname);
+			pstmt.setString(4, lastname);
+
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		} finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static List<Cashier> displayAllCashiers() throws Exception
+	{
+		List<Cashier> result = new ArrayList<Cashier>();
+		ResultSet rs=null;
+		try {
+			String sql = "select * from cashier";
+			Statement stmt = getConnection().createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				String username = rs.getString("username");
+				String lastname = rs.getString("lastname");
+				String firstname = rs.getString("firstname");
+				
+				Cashier c = new Cashier();
+				c.setUsername(username);
+				c.setLastname(lastname);
+				c.setFirstname(firstname);
+				
+				result.add(c);
+			}
+			return result;
+		} 
+		finally 
+		{
+		if (rs!=null) {
+			rs.close(); //will be executed always
+		}
+		if (conn!=null)
+			conn.close();
+		}
+	}
+	
+	public static int removeCashierbyUsername(String username) throws SQLException, Exception{
+		String sql = "delete From cashier where username = ?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, username);		
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		}catch (Exception e){
+			return 0;
+		}
+		finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static int updateCashierLastname(String username, String newLastName) throws Exception
+	{
+		String sql = "update Cashier set lastname = '"+ newLastName +"' where username = " +"'"+ username+"'";
+		Statement stmt=null;
+		try {
+			Connection cnn = getConnection();
+			stmt = cnn.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+			return executeUpdate;
+		} finally {
+			if (stmt!=null){
+		stmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	
 	
 	}

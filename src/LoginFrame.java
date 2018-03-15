@@ -109,6 +109,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 				} catch (Exception e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Username not found!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				

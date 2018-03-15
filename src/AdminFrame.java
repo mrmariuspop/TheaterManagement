@@ -24,12 +24,11 @@ public class AdminFrame extends JFrame implements ActionListener {
 		
 		frame.setVisible(true);
 	
-		
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		panel.setLayout(null);
 		
-		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\ut.png"));
+		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\adminlogo.png"));
 		panel.add(background);
 		background.setBounds(130,-70,350,350);
 		
@@ -74,6 +73,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addCashier) {
 			CashierEditFrame cash1 = new CashierEditFrame();
+
 			System.out.println("Cashier Window opened!"); // quit application and close frame when QUIT is
 							// pressed
 		}

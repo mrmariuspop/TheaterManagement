@@ -3,11 +3,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 		
@@ -86,20 +88,29 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addCashier) {
+			AddCashierFrame addCashier = new AddCashierFrame();
 			System.out.println("Add new cashier window!"); // quit application and close frame when QUIT is
 							// pressed
 		}
 		if (e.getSource() == updateCashier) {
+			UpdateCashierFrame updateCashierFrame = new UpdateCashierFrame();
 			System.out.println("Update a cashier!"); // quit application and close frame when QUIT is
 							// pressed
 		}
 		if (e.getSource() == deleteCashier) {
+			RemoveCashierFrame deleteCashierFrame = new RemoveCashierFrame();
 			System.out.println("Pick a cashier to delete!"); // quit application and close frame when QUIT is
 							// pressed
 		}
-		if (e.getSource() == display) {
-			System.out.println("Display all cashiers window!"); // quit application and close frame when QUIT is
-							// pressed
+		if (e.getSource()==display)
+		{
+			try {
+				List<Cashier> displayAllCashiers = DbConnection.displayAllCashiers();
+				CashiersTable ct = new CashiersTable(displayAllCashiers);
+				ct.displayTableCust();
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Internal Error", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 //		
 //		if (e.getSource() == registerButton) {
