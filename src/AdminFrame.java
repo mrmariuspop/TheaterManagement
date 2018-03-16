@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 		
 public class AdminFrame extends JFrame implements ActionListener {
 
-	JButton addCashier=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\addCashier.png"));
-	JButton showsBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\show.png"));
-	JButton export=new 	JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\exp.png"));
+	JButton addCashier=new JButton(new ImageIcon("images\\addCashier.png"));
+	JButton showsBtn=new JButton(new ImageIcon("images\\show.png"));
+	JButton export=new 	JButton(new ImageIcon("images\\exp.png"));
 	public AdminFrame()
 	{
 		JFrame frame = new JFrame("User Window");
@@ -28,7 +28,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 		frame.add(panel);
 		panel.setLayout(null);
 		
-		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\adminlogo.png"));
+		JLabel background=new JLabel(new ImageIcon("images\\adminlogo.png"));
 		panel.add(background);
 		background.setBounds(130,-70,350,350);
 		

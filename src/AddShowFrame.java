@@ -114,6 +114,8 @@ public class AddShowFrame extends JFrame implements ActionListener {
 		{
 			System.out.println(genreList.getSelectedItem());
 			
+			System.out.println(datePicker.getAlignmentY());
+			
 //			LocalDate localDate = datePicker.getValue();
 
 //			System.out.println(((JTextComponent) datePicker).getText());
