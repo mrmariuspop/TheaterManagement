@@ -3,11 +3,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 		
@@ -90,14 +92,25 @@ public class ShowsFrame extends JFrame implements ActionListener {
 		if (e.getSource() == updateShow) {
 			System.out.println("Update a show!"); // quit application and close frame when QUIT is
 							// pressed
+			UpdateShowFrame updateShowDate = new UpdateShowFrame();
 		}
 		if (e.getSource() == deleteShow) {
 			System.out.println("Pick a show to delete!"); // quit application and close frame when QUIT is
 							// pressed
+			RemoveShowFrame removeShowFrame = new RemoveShowFrame();
 		}
 		if (e.getSource() == displayAllShows) {
 			System.out.println("Display all shows window!"); // quit application and close frame when QUIT is
 							// pressed
+			
+			try {
+				List<Show> displayAllShows = DbConnection.displayAllShows();
+				ShowTable pt = new ShowTable(displayAllShows);
+				pt.displayTableShows();
+			} catch (Exception e1) {
+				System.out.println(e1);
+				JOptionPane.showMessageDialog(null, "Internal Error", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 //		
 //		if (e.getSource() == registerButton) {

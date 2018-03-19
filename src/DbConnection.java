@@ -246,7 +246,7 @@ public class DbConnection {
 	
 	public static int insertShow(String title, String genre, String distribution, Date date, int noTickets) throws Exception
 	{
-		String sql = "insert Into show Values(?,?,?,?,?)";
+		String sql = "insert Into teatru.show Values(?,?,?,?,?)";
 		PreparedStatement pstmt=null;
 		try {
 			pstmt = getConnection().prepareStatement(sql);
@@ -267,5 +267,83 @@ public class DbConnection {
 				conn.close();
 		}
 	}
+	
+	public static List<Show> displayAllShows() throws Exception
+	{
+		List<Show> result = new ArrayList<Show>();
+		ResultSet rs=null;
+		try {
+			String sql = "select * from teatru.show";
+			Statement stmt = getConnection().createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				String title = rs.getString("title");
+				String genre = rs.getString("genre");
+				String distribution = rs.getString("distribution");
+				Date date = rs.getDate("date");
+				int notickets = rs.getInt("noTickets");
+				
+				Show c = new Show();
+				c.setTitle(title);
+				c.setGenre(genre);
+				c.setDistribution(distribution);
+				c.setDate(date);
+				c.setNoTickets(notickets);
+				
+				result.add(c);
+			}
+			return result;
+		} 
+		finally 
+		{
+		if (rs!=null) {
+			rs.close(); //will be executed always
+		}
+		if (conn!=null)
+			conn.close();
+		}
+	}
+	
+	public static int removeShowByTitle(String title) throws SQLException, Exception{
+		String sql = "delete From teatru.show where title = ?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, title);		
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		}catch (Exception e){
+			return 0;
+		}
+		finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static int updateShowDate(String title, String newDate) throws Exception
+	{
+		String sql = "update teatru.show set date = '"+ newDate +"' where title = " +"'"+ title+"'";
+		Statement stmt=null;
+		try {
+			Connection cnn = getConnection();
+			stmt = cnn.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+			return executeUpdate;
+		} finally {
+			if (stmt!=null){
+		stmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
 	
 	}

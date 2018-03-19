@@ -1,20 +1,20 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class AddShowFrame extends JFrame implements ActionListener {
@@ -24,6 +24,8 @@ public class AddShowFrame extends JFrame implements ActionListener {
 	 JLabel genreLbl = new JLabel("Genre");
 	 JLabel distributionLbl = new JLabel("Distribution");
 	 JTextField distributionTxt = new JTextField(20);
+	 JTextField datePickerTxt = new JTextField(20);
+
 	 
 	 String[] genres = {"Opera", "Balet"};
 	 JComboBox genreList = new JComboBox(genres);
@@ -34,7 +36,7 @@ public class AddShowFrame extends JFrame implements ActionListener {
 	 JLabel noTicketsLbl = new JLabel("No.Tickets");
 	 
 	 JTextField dateTxt = new JTextField(20);
-	 JLabel lastnameTxt = new JLabel("0");
+	 JLabel zeroTicketsLbl = new JLabel("0");
 	 
 	 private static final Properties p = new Properties() {{
 		    put("text.today", "Today");
@@ -46,7 +48,7 @@ public class AddShowFrame extends JFrame implements ActionListener {
 	 
 	 
 	 JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-	 JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+//	 JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
 	 
 	 
@@ -64,8 +66,11 @@ public class AddShowFrame extends JFrame implements ActionListener {
 		frame.setVisible(true);
 		panel.setLayout(null);
 		
-		panel.add(datePicker);
-		datePicker.setBounds(100, 100 ,160, 30);
+//		panel.add(datePicker);
+//		datePicker.setBounds(100, 100 ,160, 30);
+		
+		panel.add(datePickerTxt);
+		datePickerTxt.setBounds(100, 100 ,160, 25);
 		
 		
 		userLabel.setBounds(10, 10, 80, 25);
@@ -73,13 +78,13 @@ public class AddShowFrame extends JFrame implements ActionListener {
 		panel.add(dateLbl);
 		panel.add(noTicketsLbl);
 		panel.add(dateTxt);
-		panel.add(lastnameTxt);
+		panel.add(zeroTicketsLbl);
 		
 		distributionTxt.setBounds(100, 70 ,160, 25);
 		panel.add(distributionTxt);
 		
 		//dateTxt.setBounds(100, 100 ,160, 25);
-		lastnameTxt.setBounds(100, 130 ,160, 25);
+		zeroTicketsLbl.setBounds(100, 130 ,160, 25);
 		
 		titleTxt.setBounds(100, 10, 160, 25);
 		panel.add(titleTxt);
@@ -112,9 +117,31 @@ public class AddShowFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addShowBtn)
 		{
-			System.out.println(genreList.getSelectedItem());
+			int aux2 = Integer.parseInt(zeroTicketsLbl.getText());
+			String aux = (String) genreList.getSelectedItem();
 			
-			System.out.println(datePicker.getAlignmentY());
+		
+			
+			try {
+				String startDate="01-02-2013";
+				SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+				java.util.Date date = sdf1.parse(startDate);
+				java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());  
+				
+				DbConnection.insertShow(titleTxt.getText(), aux, distributionTxt.getText(), sqlStartDate , aux2);
+				JOptionPane.showMessageDialog(null, "Show succesfuly inserted!", "Check", JOptionPane.INFORMATION_MESSAGE);
+
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				
+				
+			}
+
+			
+			
+			
+//			System.out.println(datePicker.getAlignmentY());
 			
 //			LocalDate localDate = datePicker.getValue();
 
