@@ -22,11 +22,12 @@ public class ShowsFrame extends JFrame implements ActionListener {
 	JButton updateShow=new JButton("Update");
 	JButton deleteShow=new JButton("Delete");
 	JButton displayAllShows=new JButton("Display");
+	JButton backBtn = new JButton("Back");
+	JFrame frame = new JFrame("Shows Window");
 
 	
 	public ShowsFrame()
 	{
-		JFrame frame = new JFrame("User Window");
 		frame.setSize(650, 650);
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -37,6 +38,9 @@ public class ShowsFrame extends JFrame implements ActionListener {
 		frame.add(panel);
 		panel.setLayout(null);
 		
+		
+		panel.add(backBtn);
+		backBtn.setBounds(500,550,80,25);
 		
 		panel.add(displayAll);
 		displayAll.setBounds(130,-70,350,350);
@@ -76,6 +80,7 @@ public class ShowsFrame extends JFrame implements ActionListener {
 		updateShow.addActionListener(this);
 		deleteShow.addActionListener(this);
 		displayAllShows.addActionListener(this);
+		backBtn.addActionListener(this);
 
 	}
 
@@ -113,6 +118,15 @@ public class ShowsFrame extends JFrame implements ActionListener {
 			}
 		}
 //		
+		if (e.getSource() == backBtn) {
+
+			AdminFrame af3 = new AdminFrame();
+			frame.dispose();
+			System.out.println("Shows Window opened!"); // quit application and close frame when QUIT is
+							// pressed
+		}
+		
+		
 //		if (e.getSource() == registerButton) {
 //			RegisterFrame frame2 = new RegisterFrame();
 //							// pressed

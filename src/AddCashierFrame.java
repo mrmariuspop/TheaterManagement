@@ -1,6 +1,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -80,6 +82,33 @@ public class AddCashierFrame extends JFrame implements ActionListener {
 	}
 	
 
+	public static String encode(String password)
+    {
+        String passwordToHash = password;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addCashierBtn)
@@ -87,7 +116,7 @@ public class AddCashierFrame extends JFrame implements ActionListener {
 			if (userText2.getText().equals(passwordText.getText())) 
 			{
 				try {
-					DbConnection.insertCashier(userText.getText(), passwordText.getText(), firstnameTxt.getText(), lastnameTxt.getText());
+					DbConnection.insertCashier(userText.getText(), encode(passwordText.getText()), firstnameTxt.getText(), lastnameTxt.getText());
 					JOptionPane.showMessageDialog(null, "Cashier succesfuly added!", "Check", JOptionPane.INFORMATION_MESSAGE);
 
 				} catch (Exception e1) {

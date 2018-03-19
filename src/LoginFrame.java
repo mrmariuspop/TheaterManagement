@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,10 +20,11 @@ public class LoginFrame extends JFrame implements ActionListener {
 	 JLabel passwordLabel = new JLabel("Password");
 	 JPasswordField passwordText = new JPasswordField(20);
 	 JButton loginButton = new JButton("login");
+	 JFrame frame = new JFrame("Login Window");
 	
 	public LoginFrame()
 	{
-		JFrame frame = new JFrame("Login Window");
+		
 		frame.setSize(450, 450);
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -60,7 +63,33 @@ public class LoginFrame extends JFrame implements ActionListener {
 	}
 	
 
-	
+	public static String encode(String password)
+    {
+        String passwordToHash = password;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
 	public void actionPerformed(ActionEvent e) {
 		boolean test = false;
 		boolean test1 = false;
@@ -72,9 +101,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 			try {
 				 test  = DbConnection.checkUserInAdmin(userText.getText());
 				  pass = passwordText.getText();
-				  
-				 
-				 if (DbConnection.givePasswordByUsernameAdmin(userText.getText()).equals(pass)) 
+				 if (DbConnection.givePasswordByUsernameAdmin(userText.getText()).equals(encode(pass))) 
 				 {
 					 succesfulForAdmin = true;
 					 System.out.println("Login Succesful for Admin");
@@ -95,7 +122,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 					
 					System.out.println(DbConnection.givePasswordbyUsernameCashier(userText.getText()));
 					pass1 = passwordText.getText();
-					 if (DbConnection.givePasswordbyUsernameCashier(userText.getText()).equals(pass1)) 
+					 if (DbConnection.givePasswordbyUsernameCashier(userText.getText()).equals(encode(pass1))) 
 					 {
 						 succesfulForCashier = true;
 						 System.out.println("Login Succesful for Cashier");
@@ -117,17 +144,18 @@ public class LoginFrame extends JFrame implements ActionListener {
 		finally 
 		{
 			
+			
+		}
 			if (succesfulForAdmin) 
 			{
 				AdminFrame adminFrame = new AdminFrame();
+				frame.dispose();
 			}
 			
 			if (succesfulForCashier)
 			{
 				CashierFrame cashierFrame = new CashierFrame();
 			}
-		}
-			
 			
 							// pressed
 		}

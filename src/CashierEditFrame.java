@@ -22,11 +22,12 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 	JButton updateCashier=new JButton("Update");
 	JButton deleteCashier=new JButton("Delete");
 	JButton display=new JButton("Display");
-
+	JButton backBtn=new JButton("Back");
+	JFrame frame = new JFrame("User Window");
 	
 	public CashierEditFrame()
 	{
-		JFrame frame = new JFrame("User Window");
+		
 		frame.setSize(650, 650);
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -59,7 +60,8 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 		panel.add(payTaxes);
 		payTaxes.setBounds(485, 260,100,50);
 		
-		
+		panel.add(backBtn);
+		backBtn.setBounds(500, 550, 80, 25);
 		panel.add(deleteCashier);
 		deleteCashier.setBounds(80,430,100,25);
 		
@@ -79,6 +81,7 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 		updateCashier.addActionListener(this);
 		deleteCashier.addActionListener(this);
 		display.addActionListener(this);
+		backBtn.addActionListener(this);
 
 	}
 
@@ -112,11 +115,15 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Internal Error", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-//		
-//		if (e.getSource() == registerButton) {
-//			RegisterFrame frame2 = new RegisterFrame();
-//							// pressed
-//		}
+		if (e.getSource() == backBtn) {
+				
+
+			AdminFrame af2 = new AdminFrame();
+			frame.dispose();
+			System.out.println("Shows Window opened!"); // quit application and close frame when QUIT is
+							// pressed
+		}
+		
 //
 	}
 

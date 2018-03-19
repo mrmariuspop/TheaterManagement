@@ -15,19 +15,24 @@ public class CashierFrame extends JFrame implements ActionListener {
 
 	JButton sellTicketBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttk.png"));
 	JButton seeAllTicketsBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\aalltkt.png"));
+	JButton logOut=new JButton("Logout");
+	JFrame frame = new JFrame("Cashier Window");
+	
+	
 	public CashierFrame()
 	{
-		JFrame frame = new JFrame("User Window");
+		
 		frame.setSize(650, 650);
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.setVisible(true);
 	
-		
+	
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		panel.setLayout(null);
-		
+		panel.add(logOut);
+		logOut.setBounds(500,550,80,25);
 		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttklogo.png"));
 		panel.add(background);
 		background.setBounds(130,-0,350,350);
@@ -55,6 +60,8 @@ public class CashierFrame extends JFrame implements ActionListener {
 		
 		sellTicketBtn.addActionListener(this);
 		seeAllTicketsBtn.addActionListener(this);
+		logOut.addActionListener(this);
+
 	}
 
 	@Override
@@ -71,7 +78,13 @@ public class CashierFrame extends JFrame implements ActionListener {
 							// pressed
 		}
 		
-		
+		if (e.getSource() == logOut) {
+
+			LoginFrame login2 = new LoginFrame();
+			frame.dispose();
+			System.out.println("Logout succeded!"); // quit application and close frame when QUIT is
+							// pressed
+		}
 		
 		
 //		showsBtn

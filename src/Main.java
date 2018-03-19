@@ -1,7 +1,11 @@
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class Main {
-public static void main(String[] args)
+public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException
 {
-	AdminFrame main = new AdminFrame();
+	LoginFrame main = new LoginFrame();
+	
+	
 }
 }

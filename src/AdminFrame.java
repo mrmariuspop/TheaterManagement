@@ -16,9 +16,14 @@ public class AdminFrame extends JFrame implements ActionListener {
 	JButton addCashier=new JButton(new ImageIcon("images\\addCashier.png"));
 	JButton showsBtn=new JButton(new ImageIcon("images\\show.png"));
 	JButton export=new 	JButton(new ImageIcon("images\\exp.png"));
+	JButton backBtn=new 	JButton("Log Out");
+	
+	JFrame frame = new JFrame("Admin Window");
+	
+	
 	public AdminFrame()
 	{
-		JFrame frame = new JFrame("User Window");
+		
 		frame.setSize(650, 650);
 //		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -27,6 +32,9 @@ public class AdminFrame extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		panel.setLayout(null);
+		panel.add(backBtn);
+		
+		backBtn.setBounds(500, 550, 80, 25);
 		
 		JLabel background=new JLabel(new ImageIcon("images\\adminlogo.png"));
 		panel.add(background);
@@ -64,6 +72,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 		
 		addCashier.addActionListener(this);
 		showsBtn.addActionListener(this);
+		backBtn.addActionListener(this);
 	}
 
 	@Override
@@ -73,12 +82,22 @@ public class AdminFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addCashier) {
 			CashierEditFrame cash1 = new CashierEditFrame();
+			frame.dispose();
 
 			System.out.println("Cashier Window opened!"); // quit application and close frame when QUIT is
 							// pressed
 		}
 		if (e.getSource() == showsBtn) {
 			ShowsFrame cash1 = new ShowsFrame();
+			frame.dispose();
+			System.out.println("Shows Window opened!"); // quit application and close frame when QUIT is
+							// pressed
+		}
+		
+		if (e.getSource() == backBtn) {
+
+			LoginFrame login2 = new LoginFrame();
+			frame.dispose();
 			System.out.println("Shows Window opened!"); // quit application and close frame when QUIT is
 							// pressed
 		}
