@@ -44,7 +44,7 @@ public class ShowTable {
 			res[i][1] = list.get(i).getGenre();
 			res[i][2] = list.get(i).getDistribution();
 			res[i][3] = df.format(list.get(i).getDate());
-			res[i][4] = list.get(i).getDistribution();
+			res[i][4] = String.valueOf(list.get(i).getNoTickets());
 		}
 		return res;
 	}

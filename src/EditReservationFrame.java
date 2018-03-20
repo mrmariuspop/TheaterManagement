@@ -28,12 +28,12 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 	 JLabel oldRowLbl = new JLabel("Old Row");
 	 JLabel oldColLbl = new JLabel("Old Col");
 	 
-	 JTextField oldRowTxt = new JTextField("old row");
-	 JTextField oldColTxt = new JTextField("old col");
+	 JTextField oldRowTxt = new JTextField(20);
+	 JTextField oldColTxt = new JTextField(20);
 	 
-	 JTextField titleTxt = new JTextField("r1");
-	 JTextField rowTxt = new JTextField("r2");
-	 JTextField colTxt = new JTextField("r3");
+	 JTextField titleTxt = new JTextField(20);
+	 JTextField rowTxt = new JTextField(20);
+	 JTextField colTxt = new JTextField(20);
 
 
 	 JButton editBtn = new JButton("Edit");
@@ -44,7 +44,7 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 	 
 	 {
 	 try {
-		    String[] titleCmb = new String[5];
+		    String[] titleCmb = new String[10];
 		    int i = 0;
 		    
 			List<Show> lista = DbConnection.displayAllShows();

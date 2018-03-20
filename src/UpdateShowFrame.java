@@ -96,7 +96,7 @@ public class UpdateShowFrame extends JFrame implements ActionListener {
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Invalid Date!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			
