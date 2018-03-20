@@ -154,6 +154,7 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 			try {
 				
 				boolean checkIfSeatTaken = DbConnection.checkIfSeatTaken(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()));
+				boolean checkIfSeatPayed = DbConnection.checkIfSeatTaken(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(oldRowTxt.getText()), Integer.parseInt(colTxt.getText()));
 				
 				if (checkIfSeatTaken)
 				{
@@ -162,8 +163,26 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 				}
 				else 
 				{
-					DbConnection.updateSeatRow(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(oldRowTxt.getText()), Integer.parseInt(colTxt.getText()));
-					JOptionPane.showMessageDialog(null, "Seat row succesfully updated!", "Check", JOptionPane.INFORMATION_MESSAGE);
+					if (Integer.parseInt(rowTxt.getText()) < 0 || Integer.parseInt(rowTxt.getText()) > 65 || Integer.parseInt(colTxt.getText()) < 0 || Integer.parseInt(colTxt.getText()) > 65) 
+					{
+						JOptionPane.showMessageDialog(null, "Invalid seat!", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+					else
+					{
+						if (checkIfSeatPayed) 
+						{
+							DbConnection.updateSeatRow(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(oldRowTxt.getText()), Integer.parseInt(colTxt.getText()));
+							JOptionPane.showMessageDialog(null, "Seat row succesfully updated!", "Check", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "You have to buy the ticket first in order to edit it!", "Error", JOptionPane.ERROR_MESSAGE);
+
+						}
+						
+					}
+					
 				}
 				
 
@@ -182,6 +201,7 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 			try {
 				
 				boolean checkIfSeatTaken = DbConnection.checkIfSeatTaken(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()));
+				boolean checkIfSeatPayed = DbConnection.checkIfSeatTaken(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(oldColTxt.getText()));
 				
 				if (checkIfSeatTaken)
 				{
@@ -190,8 +210,27 @@ public class EditReservationFrame extends JFrame implements ActionListener {
 				}
 				else 
 				{
-					DbConnection.updateSeatCol(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()), Integer.parseInt(oldColTxt.getText()));
-					JOptionPane.showMessageDialog(null, "Seat column succesfully updated!", "Check", JOptionPane.INFORMATION_MESSAGE);
+					if(Integer.parseInt(rowTxt.getText()) < 0 ||  Integer.parseInt(colTxt.getText()) > 65 ||Integer.parseInt(oldColTxt.getText()) < 0 || Integer.parseInt(oldColTxt.getText()) > 65 )
+					{
+						JOptionPane.showMessageDialog(null, "Invalid seat!", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+					else
+					{
+						if (checkIfSeatPayed == false)
+						{
+							JOptionPane.showMessageDialog(null, "You have to buy the ticket first in order to edit it!", "Error", JOptionPane.ERROR_MESSAGE);
+
+						}
+						else
+						{
+							DbConnection.updateSeatCol(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()), Integer.parseInt(oldColTxt.getText()));
+							JOptionPane.showMessageDialog(null, "Seat column succesfully updated!", "Check", JOptionPane.INFORMATION_MESSAGE);
+						}
+						
+					}
+					
+					
 				}
 				
 
