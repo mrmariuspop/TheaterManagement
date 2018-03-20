@@ -481,4 +481,67 @@ public class DbConnection {
 		}
 	}
 	
+	public static int removeTicketByShowNameAndSeatAndCol(String showtitle, int row, int col) throws SQLException, Exception{
+		String sql = "delete From ticket where showtitle = ? AND row = ? AND col = ?";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, showtitle);	
+			pstmt.setInt(2, row);	
+			pstmt.setInt(3, col);	
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		}catch (Exception e){
+			return 0;
+		}
+		finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static int updateSeatRow(String showtitle, int newRow, int oldRow, int col) throws Exception
+	{
+		int aux = DbConnection.getNoOfTicketByTitle(showtitle);
+		int noTick = aux +1 ;
+		String sql = "update ticket set row = '"+ newRow +"' where showtitle = " +"'"+ showtitle+"' AND col = " + col + " AND row = " + oldRow;
+		Statement stmt=null;
+		try {
+			Connection cnn = getConnection();
+			stmt = cnn.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+			return executeUpdate;
+		} finally {
+			if (stmt!=null){
+		stmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static int updateSeatCol(String showtitle, int row, int newCol, int oldCol) throws Exception
+	{
+		int aux = DbConnection.getNoOfTicketByTitle(showtitle);
+		int noTick = aux +1 ;
+		String sql = "update ticket set col = '"+ newCol +"' where showtitle = " +"'"+ showtitle+"' AND row = " + row + " AND col = " + oldCol;
+		Statement stmt=null;
+		try {
+			Connection cnn = getConnection();
+			stmt = cnn.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+			return executeUpdate;
+		} finally {
+			if (stmt!=null){
+		stmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
 	}

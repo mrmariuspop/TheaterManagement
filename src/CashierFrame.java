@@ -17,9 +17,13 @@ public class CashierFrame extends JFrame implements ActionListener {
 
 	JButton sellTicketBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttk.png"));
 	JButton seeAllTicketsBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\aalltkt.png"));
+	JButton cancelResBtn=new JButton(new ImageIcon("images\\cancel.png"));
+	JButton editBtn=new JButton(new ImageIcon("images\\edit.png"));
 	JButton logOut=new JButton("Logout");
 	JFrame frame = new JFrame("Cashier Window");
-	
+	JLabel cancelLbl = new JLabel("Cancel Reservation");
+	JLabel editLbl = new JLabel("Edit Reservation");
+
 	
 	public CashierFrame()
 	{
@@ -34,11 +38,20 @@ public class CashierFrame extends JFrame implements ActionListener {
 		frame.add(panel);
 		panel.setLayout(null);
 		panel.add(logOut);
+		panel.add(cancelResBtn);
+		panel.add(editBtn);
+		editBtn.setBounds(360,450,50,50);
+		panel.add(editLbl);
+		editLbl.setBounds(345,485,150,50);
+		
+		cancelResBtn.setBounds(200,450,50,50);
 		logOut.setBounds(500,550,80,25);
 		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttklogo.png"));
 		panel.add(background);
 		background.setBounds(130,-0,350,350);
+		panel.add(cancelLbl);
 		
+		cancelLbl.setBounds(175,485,150,50);
 		panel.add(sellTicketBtn);
 		sellTicketBtn.setBounds(80,450,50,50);
 		
@@ -63,6 +76,8 @@ public class CashierFrame extends JFrame implements ActionListener {
 		sellTicketBtn.addActionListener(this);
 		seeAllTicketsBtn.addActionListener(this);
 		logOut.addActionListener(this);
+		cancelResBtn.addActionListener(this);
+		editBtn.addActionListener(this);
 
 	}
 
@@ -96,11 +111,18 @@ public class CashierFrame extends JFrame implements ActionListener {
 
 			LoginFrame login2 = new LoginFrame();
 			frame.dispose();
-			System.out.println("Logout succeded!"); // quit application and close frame when QUIT is
 							// pressed
 		}
-		
-		
+		if (e.getSource() == cancelResBtn) {
+
+			CancelReservationFrame cancelReservationFrame = new CancelReservationFrame();
+							// pressed
+		}
+		if (e.getSource() == editBtn) {
+
+			System.out.println("Edit Button pressed");
+			EditReservationFrame editReservationFrame = new EditReservationFrame();
+		}
 //		showsBtn
 //		if (e.getSource() == registerButton) {
 //			RegisterFrame frame2 = new RegisterFrame();

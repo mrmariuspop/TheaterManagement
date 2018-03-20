@@ -154,7 +154,9 @@ public class LoginFrame extends JFrame implements ActionListener {
 			
 			if (succesfulForCashier)
 			{
+				System.out.println(pass1);
 				CashierFrame cashierFrame = new CashierFrame();
+				frame.dispose();
 			}
 			
 							// pressed
