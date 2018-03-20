@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 		
 public class ShowsFrame extends JFrame implements ActionListener {
 
-	JLabel displayAll=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\trt.png"));
+	JLabel displayAll=new JLabel(new ImageIcon("images\\trt.png"));
 
 	
 	JButton addShow=new JButton("Add");

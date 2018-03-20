@@ -31,7 +31,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		frame.add(panel);
 		
-		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\ut.png"));
+		JLabel background=new JLabel(new ImageIcon("images\\ut.png"));
 		panel.add(background);
 		
 		frame.setVisible(true);
@@ -110,6 +110,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 				 {
 					 succesfulForAdmin = false;
 					 System.out.println("Login UnSuccesful for Admin");
+						JOptionPane.showMessageDialog(null, "Password does not correspond to the given user!", "Error", JOptionPane.ERROR_MESSAGE);
+
 				 }
 				;
 			} catch (Exception e1) {
@@ -130,7 +132,10 @@ public class LoginFrame extends JFrame implements ActionListener {
 					 else 
 					 {
 						 succesfulForCashier = false;
+
 						 System.out.println("Login Unsuccesful for Cashier");
+							JOptionPane.showMessageDialog(null, "Password does not correspond to the given user!", "Error", JOptionPane.ERROR_MESSAGE);
+
 					 }
 					
 				} catch (Exception e2) {

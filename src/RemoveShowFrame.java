@@ -1,8 +1,10 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,7 +18,30 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 	 JLabel titleLbl = new JLabel("Title");
 	 JTextField titleTxt = new JTextField(20);
 	 JButton deleteShowBtn = new JButton("Delete");
+ JComboBox genreList = new JComboBox();
+	 
+	 {
+	 try {
+		    String[] titleCmb = new String[5];
+		    int i = 0;
+		    
+			List<Show> lista = DbConnection.displayAllShows();
+			
+			for (Show iterator : lista) {
+				String da = iterator.getTitle();
+				
+				titleCmb[i] = da;
+				i++;
 
+			}
+			
+			 genreList = new JComboBox(titleCmb);
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	 }
 	
 	public RemoveShowFrame()
 	{
@@ -26,7 +51,7 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		frame.add(panel);
-
+		panel.add(genreList);
 		frame.setVisible(true);
 		panel.setLayout(null);
 
@@ -36,8 +61,7 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 		
 		
 		
-		titleTxt.setBounds(100, 10, 160, 25);
-		panel.add(titleTxt);
+		genreList.add(titleTxt);
 
 		
 
@@ -55,8 +79,20 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 		if (e.getSource() == deleteShowBtn)
 		{
 			try {
-				DbConnection.removeShowByTitle(titleTxt.getText());
-				JOptionPane.showMessageDialog(null, "Show succesfuly deleted!", "Check", JOptionPane.INFORMATION_MESSAGE);
+				int noTick = DbConnection.noOfTicketSoldForAShow(String.valueOf(genreList.getSelectedItem()));
+				
+				if (noTick ==0) 
+				{
+					DbConnection.removeShowByTitle(String.valueOf(genreList.getSelectedItem()));
+					JOptionPane.showMessageDialog(null, "Show succesfuly deleted!", "Check", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Ticket already sold, gotta keep goin with the show bro!", "Error", JOptionPane.ERROR_MESSAGE);
+
+				}
+				
+				
 
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

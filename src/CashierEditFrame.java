@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 		
 public class CashierEditFrame extends JFrame implements ActionListener {
 
-	JLabel displayAll=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\cashi.png"));
+	JLabel displayAll=new JLabel(new ImageIcon("images\\cashi.png"));
 
 	
 	JButton addCashier=new JButton("Add");

@@ -1,8 +1,10 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +22,30 @@ public class UpdateShowFrame extends JFrame implements ActionListener {
 	 JTextField newDateTxt = new JTextField(20);
 
 	 JButton updateNewDateBtn = new JButton("Update");
+	 JComboBox genreList = new JComboBox();
+	 
+	 {
+	 try {
+		    String[] titleCmb = new String[5];
+		    int i = 0;
+		    
+			List<Show> lista = DbConnection.displayAllShows();
+			
+			for (Show iterator : lista) {
+				String da = iterator.getTitle();
+				
+				titleCmb[i] = da;
+				i++;
 
+			}
+			
+			 genreList = new JComboBox(titleCmb);
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	 }
 	
 	public UpdateShowFrame()
 	{
@@ -30,7 +55,7 @@ public class UpdateShowFrame extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		frame.add(panel);
-
+		panel.add(genreList);
 		frame.setVisible(true);
 		panel.setLayout(null);
 
@@ -43,7 +68,7 @@ public class UpdateShowFrame extends JFrame implements ActionListener {
 		
 		
 		
-		titleTxt.setBounds(100, 10, 160, 25);
+		genreList.setBounds(100, 10, 160, 25);
 		panel.add(titleTxt);
 		panel.add(newDateTxt);
 		newDateTxt.setBounds(100, 40, 160, 25);
@@ -66,7 +91,7 @@ public class UpdateShowFrame extends JFrame implements ActionListener {
 //			System.out.println("lastname   = " + userText1.getText() + "\n");
 
 			try {
-				DbConnection.updateShowDate(titleTxt.getText(), newDateTxt.getText());
+				DbConnection.updateShowDate(String.valueOf(genreList.getSelectedItem()), newDateTxt.getText());
 				JOptionPane.showMessageDialog(null, "Show`s date succesfully updated!", "Error", JOptionPane.INFORMATION_MESSAGE);
 
 			} catch (Exception e1) {

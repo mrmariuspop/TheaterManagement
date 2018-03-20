@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 		
 public class CashierFrame extends JFrame implements ActionListener {
 
-	JButton sellTicketBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttk.png"));
-	JButton seeAllTicketsBtn=new JButton(new ImageIcon("C:\\Users\\Pop\\Downloads\\aalltkt.png"));
+	JButton sellTicketBtn=new JButton(new ImageIcon("images\\ttk.png"));
+	JButton seeAllTicketsBtn=new JButton(new ImageIcon("images\\aalltkt.png"));
 	JButton cancelResBtn=new JButton(new ImageIcon("images\\cancel.png"));
 	JButton editBtn=new JButton(new ImageIcon("images\\edit.png"));
 	JButton logOut=new JButton("Logout");
@@ -46,7 +46,7 @@ public class CashierFrame extends JFrame implements ActionListener {
 		
 		cancelResBtn.setBounds(200,450,50,50);
 		logOut.setBounds(500,550,80,25);
-		JLabel background=new JLabel(new ImageIcon("C:\\Users\\Pop\\Downloads\\ttklogo.png"));
+		JLabel background=new JLabel(new ImageIcon("images\\ttklogo.png"));
 		panel.add(background);
 		background.setBounds(130,-0,350,350);
 		panel.add(cancelLbl);

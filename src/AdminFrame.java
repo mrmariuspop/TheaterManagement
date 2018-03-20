@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 		
@@ -107,6 +108,9 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 			System.out.println("Exported!"); // quit application and close frame when QUIT is
 							// pressed
+			
+			JOptionPane.showMessageDialog(null, "Data succesfully exported to csv file!", "Check", JOptionPane.INFORMATION_MESSAGE);
+
 			
 			try {
 				List<Ticket> displayAllTickets = DbConnection.displayAllTickets();
