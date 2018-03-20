@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
 		
 public class AdminFrame extends JFrame implements ActionListener {
 
-	JButton addCashier=new JButton(new ImageIcon("images\\addCashier.png"));
+	JButton cashiersBtn=new JButton(new ImageIcon("images\\addCashier.png"));
 	JButton showsBtn=new JButton(new ImageIcon("images\\show.png"));
 	JButton export=new 	JButton(new ImageIcon("images\\exp.png"));
 	JButton backBtn=new 	JButton("Log Out");
@@ -40,8 +41,8 @@ public class AdminFrame extends JFrame implements ActionListener {
 		panel.add(background);
 		background.setBounds(130,-70,350,350);
 		
-		panel.add(addCashier);
-		addCashier.setBounds(80,250,50,50);
+		panel.add(cashiersBtn);
+		cashiersBtn.setBounds(80,250,50,50);
 		
 		JLabel cashiers = new JLabel("Cashiers");
 		panel.add(cashiers);
@@ -70,9 +71,10 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 		
 		
-		addCashier.addActionListener(this);
+		cashiersBtn.addActionListener(this);
 		showsBtn.addActionListener(this);
 		backBtn.addActionListener(this);
+		export.addActionListener(this);
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public class AdminFrame extends JFrame implements ActionListener {
 
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addCashier) {
+		if (e.getSource() == cashiersBtn) {
 			CashierEditFrame cash1 = new CashierEditFrame();
 			frame.dispose();
 
@@ -100,6 +102,19 @@ public class AdminFrame extends JFrame implements ActionListener {
 			frame.dispose();
 			System.out.println("Shows Window opened!"); // quit application and close frame when QUIT is
 							// pressed
+		}
+		if (e.getSource() == export) {
+
+			System.out.println("Exported!"); // quit application and close frame when QUIT is
+							// pressed
+			
+			try {
+				List<Ticket> displayAllTickets = DbConnection.displayAllTickets();
+				ToCSV.fromListToArrayCSV(displayAllTickets);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 		

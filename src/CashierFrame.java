@@ -3,11 +3,13 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 		
@@ -49,9 +51,9 @@ public class CashierFrame extends JFrame implements ActionListener {
 		panel.add(seeAllTicketsBtn);
 		seeAllTicketsBtn.setBounds(80+400,450,50,50);
 		
-		JLabel seeAllTickets = new JLabel("See all tickets for a show");
+		JLabel seeAllTickets = new JLabel("See all tickets");
 		panel.add(seeAllTickets);
-		seeAllTickets.setBounds(440, 485,150,50);
+		seeAllTickets.setBounds(465, 485,150,50);
 		
 		
 	
@@ -72,10 +74,22 @@ public class CashierFrame extends JFrame implements ActionListener {
 		if (e.getSource() == sellTicketBtn) {
 			System.out.println("Sell ticket frame opened"); // quit application and close frame when QUIT is
 							// pressed
+			
+			SellTicketFrame sellTicketFrame = new SellTicketFrame();
 		}
 		if (e.getSource() == seeAllTicketsBtn) {
 			System.out.println("See all tickets frame opened"); // quit application and close frame when QUIT is
 							// pressed
+			
+			
+			try {
+				List<Ticket> displayAllTickets = DbConnection.displayAllTickets();
+				TicketTable pt = new TicketTable(displayAllTickets);
+				pt.displayAllTickets();
+			} catch (Exception e1) {
+				System.out.println(e1);
+				JOptionPane.showMessageDialog(null, "Internal Error", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 		if (e.getSource() == logOut) {

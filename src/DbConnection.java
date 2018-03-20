@@ -345,5 +345,140 @@ public class DbConnection {
 		}
 	}
 	
+	public static int getNoOfTicketByTitle (String title) throws SQLException, Exception
+	{
+		String sql = "Select noTickets from teatru.show where title = ?";
+		PreparedStatement pstmt = null;
+		int aux = 0;
+		
+		try 
+		{
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, title);	
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				aux = rs.getInt("noTickets");
+				//  System.out.println(password + "\n");
+				}
+			
+		}
+		catch(Exception e)
+		{}
+		finally
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+		return aux;
+	}
+	
+	public static int updateNoTickets(String title) throws Exception
+	{
+		int aux = DbConnection.getNoOfTicketByTitle(title);
+		int noTick = aux +1 ;
+		String sql = "update teatru.show set noTickets = '"+ noTick +"' where title = " +"'"+ title+"'";
+		Statement stmt=null;
+		try {
+			Connection cnn = getConnection();
+			stmt = cnn.createStatement();
+			int executeUpdate = stmt.executeUpdate(sql);
+			return executeUpdate;
+		} finally {
+			if (stmt!=null){
+		stmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	public static int insertTicket(String title, int row, int col) throws Exception
+	{
+		String sql = "insert Into ticket Values(?,?,?)";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setInt(2, row);
+			pstmt.setInt(3, col);
+
+			int executeUpdate = pstmt.executeUpdate();
+			return executeUpdate;
+		} finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+	}
+	
+	
+	public static boolean checkIfSeatTaken(String title, int row, int col) throws SQLException, Exception
+	{
+		String sql = "Select * From Ticket where showtitle = ? AND row = ? AND col = ?";
+		PreparedStatement pstmt=null;
+		boolean usernameExists = false;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, title);	
+			pstmt.setInt(2, row);	
+			pstmt.setInt(3, col);	
+			ResultSet rs = pstmt.executeQuery();
+			
+			 usernameExists = rs.next();
+			
+		}catch (Exception e){
+			
+		}
+		finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+		return usernameExists;
+	}
+	
+	public static List<Ticket> displayAllTickets() throws Exception
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		ResultSet rs=null;
+		try {
+			String sql = "select * from ticket order by showtitle";
+			Statement stmt = getConnection().createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				String showTitle = rs.getString("showTitle");
+				int row = rs.getInt("row");
+				int col = rs.getInt("col");
+				
+				Ticket c = new Ticket();
+				c.setShowTitle(showTitle);;
+				c.setRow(row);
+				c.setCol(col);
+				
+				result.add(c);
+			}
+			return result;
+		} 
+		finally 
+		{
+		if (rs!=null) {
+			rs.close(); //will be executed always
+		}
+		if (conn!=null)
+			conn.close();
+		}
+	}
 	
 	}
