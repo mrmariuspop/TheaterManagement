@@ -101,7 +101,12 @@ public class CashierEditFrame extends JFrame implements ActionListener {
 							// pressed
 		}
 		if (e.getSource() == deleteCashier) {
-			RemoveCashierFrame deleteCashierFrame = new RemoveCashierFrame();
+			try {
+				RemoveCashierFrame deleteCashierFrame = new RemoveCashierFrame();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			System.out.println("Pick a cashier to delete!"); // quit application and close frame when QUIT is
 							// pressed
 		}

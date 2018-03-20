@@ -111,13 +111,25 @@ public class AddCashierFrame extends JFrame implements ActionListener {
     }
 	
 	public void actionPerformed(ActionEvent e) {
+		
 		if (e.getSource() == addCashierBtn)
 		{
 			if (userText2.getText().equals(passwordText.getText())) 
 			{
 				try {
-					DbConnection.insertCashier(userText.getText(), encode(passwordText.getText()), firstnameTxt.getText(), lastnameTxt.getText());
-					JOptionPane.showMessageDialog(null, "Cashier succesfuly added!", "Check", JOptionPane.INFORMATION_MESSAGE);
+					int allow = DbConnection.checkIfUsernameExistsAlreadyInTheDatabase(userText.getText());
+					
+					if (allow == 1)  
+					{
+						JOptionPane.showMessageDialog(null, "Username already exists in the database!", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
+					else
+					{
+						DbConnection.insertCashier(userText.getText(), encode(passwordText.getText()), firstnameTxt.getText(), lastnameTxt.getText());
+						JOptionPane.showMessageDialog(null, "Cashier succesfuly added!", "Check", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
 
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

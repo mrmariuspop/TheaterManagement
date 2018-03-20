@@ -22,7 +22,7 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 	 
 	 {
 	 try {
-		    String[] titleCmb = new String[5];
+		    String[] titleCmb = new String[10];
 		    int i = 0;
 		    
 			List<Show> lista = DbConnection.displayAllShows();
@@ -61,7 +61,7 @@ public class RemoveShowFrame extends JFrame implements ActionListener {
 		
 		
 		
-		genreList.add(titleTxt);
+		genreList.setBounds(100, 10, 160, 25);
 
 		
 

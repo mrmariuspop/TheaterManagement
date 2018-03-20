@@ -574,4 +574,35 @@ public class DbConnection {
 		}
 		return Integer.parseInt(sids.get(0));
 	}
+	
+	public static int checkIfUsernameExistsAlreadyInTheDatabase(String username) throws SQLException, Exception
+	{
+		String sql = "Select COUNT(username) From cashier where username = ?";
+		PreparedStatement pstmt=null;
+		List<String> sids = new ArrayList<String>();
+		boolean usernameExists = false;
+		try {
+			pstmt = getConnection().prepareStatement(sql);
+			pstmt.setString(1, username);	
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			while (rs.next()) {
+		        sids.add(rs.getString(1));
+		    }
+			
+		}catch (Exception e){
+			
+		}
+		finally 
+		{
+			if (pstmt!=null){
+				pstmt.close();
+			}
+			if (conn!=null)
+				conn.close();
+		}
+		return Integer.parseInt(sids.get(0));
+	}
 }
