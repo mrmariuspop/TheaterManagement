@@ -113,9 +113,18 @@ public class SellTicketFrame extends JFrame implements ActionListener {
 				}
 				else 
 				{
-					DbConnection.insertTicket(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()));
-					JOptionPane.showMessageDialog(null, "Ticket sold!", "Check", JOptionPane.INFORMATION_MESSAGE);
-					DbConnection.updateNoTickets(String.valueOf(genreList.getSelectedItem()));
+					int seats = DbConnection.noOfTicketSoldForAShow(String.valueOf(genreList.getSelectedItem()));
+					if (seats >= 5) 
+					{
+						JOptionPane.showMessageDialog(null, "No more seats available for this show!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					else 
+					{
+						DbConnection.insertTicket(String.valueOf(genreList.getSelectedItem()), Integer.parseInt(rowTxt.getText()), Integer.parseInt(colTxt.getText()));
+						JOptionPane.showMessageDialog(null, "Ticket sold!", "Check", JOptionPane.INFORMATION_MESSAGE);
+						DbConnection.updateNoTickets(String.valueOf(genreList.getSelectedItem()));
+					}
+					
 				}
 				
 			} catch (Exception e2) {
