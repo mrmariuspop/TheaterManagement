@@ -15,7 +15,7 @@ public class SellTicketFrame extends JFrame implements ActionListener {
 
 	 JLabel titleLbl = new JLabel("Title");
 	 JLabel rowLbl = new JLabel("Row");
-	 JLabel colLbl = new JLabel("Date");
+	 JLabel colLbl = new JLabel("Col");
 	 JTextField rowTxt = new JTextField(20);
 	 
 	 JComboBox genreList = new JComboBox();
